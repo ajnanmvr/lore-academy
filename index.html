@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -16,6 +16,49 @@
 
     <!-- AOS -->
     <link rel="stylesheet" href="css/aos.css">
+
+    <style>
+        /* Popup styles */
+        .popup {
+            display: none; /* Hide the popup by default */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .popup-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 300px;
+            text-align: center;
+        }
+
+        .popup h3 {
+            margin-top: 0;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
@@ -107,11 +150,20 @@
                             <label for="message">Message</label>
                             <textarea class="form-control" id="message" rows="3"></textarea>
                         </div>
-                        <button type="submit"
+                        <button type="submit" id="submitBtn"
                             class="btn font-weight-bold atlas-cta atlas-cta-wide cta-green my-3">Submit</button>
                     </form>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Error popup -->
+    <div id="errorPopup" class="popup">
+        <div class="popup-content">
+            <span class="close">&times;</span>
+            <h3 style="color: rgb(173, 12, 12);">Error</h3>
+            <p style="font-size:small;" id="errorMessage">Apologies for the inconvenience. We are currently in the process of developing our website. Please reach out to us via <b>phone</b> or <b>email</b> for any inquiries or assistance.</p>
         </div>
     </div>
 
@@ -144,6 +196,29 @@
     <script src="js/aos.js"></script>
     <script>
         AOS.init({
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get the form, submit button, popup, and close button elements
+            var form = document.querySelector("form");
+            var submitBtn = document.getElementById("submitBtn");
+            var errorPopup = document.getElementById("errorPopup");
+            var closeBtn = document.querySelector("#errorPopup .close");
+
+            // Add a click event listener to the submit button
+            submitBtn.addEventListener("click", function(event) {
+                event.preventDefault(); // Prevent form submission
+
+                // Display the error popup
+                errorPopup.style.display = "block";
+            });
+
+            // Add a click event listener to the close button
+            closeBtn.addEventListener("click", function() {
+                // Hide the error popup
+                errorPopup.style.display = "none";
+            });
         });
     </script>
 </body>
